@@ -362,5 +362,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+    
+    // 日付フィールドのクリックでカレンダーを開く
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    
+    if (startDateInput) {
+        startDateInput.addEventListener('focus', () => {
+            // フォーカス時にカレンダーを開く
+            if (startDateInput.showPicker) {
+                startDateInput.showPicker();
+            }
+        });
+    }
+    
+    if (endDateInput) {
+        endDateInput.addEventListener('focus', () => {
+            // フォーカス時にカレンダーを開く
+            if (endDateInput.showPicker) {
+                endDateInput.showPicker();
+            }
+        });
+    }
+    
 });
 

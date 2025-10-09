@@ -206,14 +206,14 @@
             <div class="section hidden" id="dateSection">
                 <div class="section-title" data-lang="dateRange">Date Range (Optional)</div>
                 <div class="date-inputs">
-                    <div class="date-field" onclick="document.getElementById('startDate').focus()">
-                        <label class="date-label" for="startDate" data-lang="startDate">Start Date</label>
+                    <label class="date-field" for="startDate">
+                        <span class="date-label" data-lang="startDate">Start Date</span>
                         <input type="date" id="startDate" onchange="updateSearchUrl()">
-                    </div>
-                    <div class="date-field" onclick="document.getElementById('endDate').focus()">
-                        <label class="date-label" for="endDate" data-lang="endDate">End Date</label>
+                    </label>
+                    <label class="date-field" for="endDate">
+                        <span class="date-label" data-lang="endDate">End Date</span>
                         <input type="date" id="endDate" onchange="updateSearchUrl()">
-                    </div>
+                    </label>
                 </div>
             </div>
 
