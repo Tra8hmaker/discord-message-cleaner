@@ -120,10 +120,13 @@ function toggleLanguage() {
 
 function updateLanguageButton() {
     const languageText = document.getElementById('languageText');
+    const languageTextShort = document.getElementById('languageTextShort');
     if (window.appState.currentLanguage === 'ja') {
         languageText.textContent = '日本語';
+        languageTextShort.textContent = '日';
     } else {
         languageText.textContent = 'English';
+        languageTextShort.textContent = 'EN';
     }
 }
 
