@@ -1408,7 +1408,7 @@
             color: #dbdee1;
             font-family: inherit;
             transition: border-color 0.15s ease;
-            width: 200px;
+            width: 100%;
             box-sizing: border-box;
             cursor: pointer;
             min-height: 48px;
