@@ -1329,6 +1329,12 @@
             margin-top: 0;
         }
 
+        /* Prevent line breaks in divider lines */
+        .console-line.console-divider {
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
         .console-line.error {
             color: #f23f43;
         }
