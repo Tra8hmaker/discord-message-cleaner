@@ -8,7 +8,7 @@
 
         body {
             font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background: linear-gradient(180deg, #5865f2 0%, #7289da 35%, #2b2d31 60%, #1e1f22 100%);
+            background: linear-gradient(180deg, #5865f2 0%, #5b6ecd 20%, #4a5ba8 40%, #3a4a85 60%, #1a1d2e 80%, #060607 100%);
             background-attachment: scroll;
             min-height: 100vh;
             padding: 20px;
@@ -16,6 +16,11 @@
             font-style: normal;
             font-synthesis: none;
             -webkit-font-synthesis: none;
+        }
+
+        body.light-theme {
+            background: linear-gradient(180deg, #7289da 0%, #a3b5e8 20%, #c5d5f5 40%, #e3ebf9 60%, #f5f7fa 80%, #ffffff 100%);
+            color: #2e3338;
         }
 
         *, *::before, *::after {
