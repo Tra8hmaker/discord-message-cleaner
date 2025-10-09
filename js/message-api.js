@@ -1,6 +1,7 @@
 // Message API Module - メッセージ取得・削除処理
 
 async function deleteMessage(channelId, messageId) {
+    console.log(`[deleteMessage] Attempting to delete message ${messageId} in channel ${channelId}`);
     try {
         const response = await fetch(`${API_BASE}/channels/${channelId}/messages/${messageId}`, {
             method: 'DELETE',
@@ -10,26 +11,34 @@ async function deleteMessage(channelId, messageId) {
             }
         });
 
+        console.log(`[deleteMessage] Response status for ${messageId}:`, response.status);
+
         if (response.status === 429) {
             const retryAfter = response.headers.get('Retry-After') || 5;
+            console.log(`[deleteMessage] Rate limited! Retry-After: ${retryAfter} seconds`);
             logRateLimit(retryAfter);
             await sleep(retryAfter * 1000);
+            console.log(`[deleteMessage] Retrying after rate limit for ${messageId}`);
             return await deleteMessage(channelId, messageId);
         }
 
         if (response.status === 403) {
+            console.log(`[deleteMessage] Permission error for ${messageId}`);
             logPermissionError();
             return 'permission_error';
         }
 
         if (response.ok || response.status === 204) {
+            console.log(`[deleteMessage] Successfully deleted ${messageId}`);
             logDeleteSuccess(messageId);
             return true;
         }
 
+        console.log(`[deleteMessage] Failed to delete ${messageId}, status: ${response.status}`);
         logDeleteFailed(messageId, response.status);
         return false;
     } catch (error) {
+        console.log(`[deleteMessage] Exception while deleting ${messageId}:`, error.message);
         logDeleteFailedWithError(messageId, error.message);
         return false;
     }
@@ -201,6 +210,10 @@ async function deleteMessagesInChannel(guildId, channelId) {
                 
                 totalMessages = Math.min(totalResultsFromAPI, maxPagesAPILimit * limit);
                 document.getElementById('totalCount').textContent = totalMessages;
+            } else if (data.total_results !== undefined) {
+                // total_resultsを毎回更新（削除により減少するため）
+                totalResultsFromAPI = data.total_results;
+                console.log('[deleteMessagesInChannel] Updated total_results to:', totalResultsFromAPI);
             } else if (totalResultsFromAPI === null) {
                 logSearchResult(data.messages?.length || 0);
                 totalMessages = data.messages ? data.messages.length : 0;
@@ -233,16 +246,25 @@ async function deleteMessagesInChannel(guildId, channelId) {
             
             logStep2();
             
+            console.log('[deleteMessagesInChannel] Starting deletion loop for', messages.length, 'messages');
+            
             // 各メッセージIDから削除を実行
-            for (const msg of messages) {
+            for (let i = 0; i < messages.length; i++) {
+                const msg = messages[i];
+                console.log(`[deleteMessagesInChannel] Deleting message ${i + 1}/${messages.length}, ID: ${msg.id}, Channel: ${msg.channel_id}`);
+                
                 if (window.appState.shouldStop) {
+                    console.log('[deleteMessagesInChannel] shouldStop flag is true, stopping...');
                     logStoppedByUser();
                     return { totalMessages, deletedCount, failedCount };
                 }
                 
                 const success = await deleteMessage(msg.channel_id, msg.id);
+                console.log(`[deleteMessagesInChannel] Delete result for ${msg.id}:`, success);
+                
                 if (success === 'permission_error') {
                     // 権限エラーが発生したら即座に停止
+                    console.log('[deleteMessagesInChannel] Permission error, stopping...');
                     window.appState.shouldStop = true;
                     return { totalMessages, deletedCount, failedCount };
                 } else if (success) {
@@ -261,29 +283,64 @@ async function deleteMessagesInChannel(guildId, channelId) {
 
                 // 削除速度設定から待機時間を取得
                 const deleteSpeed = parseInt(document.getElementById('deleteSpeed').value);
+                console.log('[deleteMessagesInChannel] Waiting', deleteSpeed, 'ms before next delete');
                 await sleep(deleteSpeed);
             }
+            
+            console.log('[deleteMessagesInChannel] Deletion loop completed. Deleted:', deletedCount, 'Failed:', failedCount);
 
             logNextPagePreparation();
             
-            // 次のページへ（sort_order=asc/descに応じてAPIが自動的に適切な順番で返す）
-            offset += foundInPage;
+            // 古い順削除の場合はoffsetを0に戻す（削除したメッセージが消えるため）
+            if (deleteOldFirst) {
+                console.log('[deleteMessagesInChannel] Oldest-first mode: resetting offset to 0 (deleted messages removed from list)');
+                offset = 0;
+            } else {
+                // 次のページへ（新しい順の場合は通常通りoffsetを増やす）
+                offset += foundInPage;
+                console.log('[deleteMessagesInChannel] Newest-first mode: incrementing offset to', offset);
+            }
             
             // offset制限をチェック
-            if (offset > 9975) {
+            if (!deleteOldFirst && offset > 9975) {
+                console.log('[deleteMessagesInChannel] Offset limit reached:', offset);
                 logOffsetLimitReached();
                 hasMorePages = false;
             }
-            // ページ数が想定より少ない場合は終了
+            // ページ数が想定より少ない場合は終了（ただしtotal_resultsも考慮）
             else if (foundInPage < limit) {
-                if (deleteOldFirst) {
-                    logOldestFirstComplete();
+                console.log('[deleteMessagesInChannel] Found fewer messages than limit. foundInPage:', foundInPage, 'limit:', limit);
+                
+                // total_resultsがある場合、まだメッセージが残っているかチェック
+                if (totalResultsFromAPI !== null) {
+                    const remainingMessages = totalResultsFromAPI - deletedCount - failedCount;
+                    console.log('[deleteMessagesInChannel] Remaining messages based on total_results:', remainingMessages);
+                    
+                    if (remainingMessages > 0) {
+                        // まだメッセージが残っている場合は続行
+                        console.log('[deleteMessagesInChannel] Messages still remain, continuing...');
+                        hasMorePages = true;
+                    } else {
+                        // 本当に終了
+                        if (deleteOldFirst) {
+                            logOldestFirstComplete();
+                        } else {
+                            logLastPageReached();
+                        }
+                        hasMorePages = false;
+                    }
                 } else {
-                    logLastPageReached();
+                    // total_resultsがない場合は従来通り終了
+                    if (deleteOldFirst) {
+                        logOldestFirstComplete();
+                    } else {
+                        logLastPageReached();
+                    }
+                    hasMorePages = false;
                 }
-                hasMorePages = false;
             }
             
+            console.log('[deleteMessagesInChannel] Moving to next page, offset:', offset, 'hasMorePages:', hasMorePages);
             logMoveToNextPage(offset);
             await sleep(2000); // ページ間の待機
         } catch (error) {
