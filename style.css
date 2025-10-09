@@ -1400,14 +1400,18 @@
         }
 
         input[type="date"] {
-            padding: 10px;
+            padding: 12px;
             background: #1e1f22;
             border: 1px solid #1e1f22;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 16px;
             color: #dbdee1;
             font-family: inherit;
             transition: border-color 0.15s ease;
+            width: 200px;
+            box-sizing: border-box;
+            cursor: pointer;
+            min-height: 48px;
         }
 
         input[type="date"]:focus {
