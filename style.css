@@ -941,6 +941,13 @@
                 width: 28px;
                 height: 28px;
             }
+            
+            /* スマホ用の日付フィールドスタイル */
+            input[type="date"] {
+                padding: 12px;
+                font-size: 16px;
+                min-height: 48px;
+            }
         }
 
         .content {
@@ -1400,18 +1407,17 @@
         }
 
         input[type="date"] {
-            padding: 12px;
+            padding: 10px;
             background: #1e1f22;
             border: 1px solid #1e1f22;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: 14px;
             color: #dbdee1;
             font-family: inherit;
             transition: border-color 0.15s ease;
             width: 100%;
             box-sizing: border-box;
             cursor: pointer;
-            min-height: 48px;
         }
 
         input[type="date"]:focus {
