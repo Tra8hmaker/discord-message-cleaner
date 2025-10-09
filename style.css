@@ -1333,6 +1333,11 @@
         .console-line.console-divider {
             white-space: nowrap;
             overflow-x: auto;
+            border: none;
+            margin-bottom: 0;
+            margin-top: 0;
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
 
         .console-line.error {
