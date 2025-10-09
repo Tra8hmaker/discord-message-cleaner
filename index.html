@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Message Cleaner</title>
+    <link rel="icon" type="image/png" href="./favicon.png">
+    
+    <!-- Theme Color (Discord Purple) -->
+    <meta name="theme-color" content="#5865f2">
+    
+    <!-- Open Graph / Discord Embed -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tra8hmaker.github.io/discord-message-cleaner/">
+    <meta property="og:title" content="Discord Message Cleaner">
+    <meta property="og:description" content="Easy-to-use browser tool to bulk delete Discord messages. No extensions needed.">
+    <meta property="og:image" content="https://tra8hmaker.github.io/discord-message-cleaner/embed-thumbnail.png">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Discord Message Cleaner">
+    <meta name="twitter:description" content="Easy-to-use browser tool to bulk delete Discord messages. No extensions needed.">
+    <meta name="twitter:image" content="https://tra8hmaker.github.io/discord-message-cleaner/embed-thumbnail.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Header Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Body Font (similar to Discord) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Controls -->
+        <div class="header-controls">
+            <div class="header-controls-left">
+                <a href="#" id="tokenHelpLink" class="token-help-btn" data-lang="tokenHelp" onclick="openTokenChecker()">How to Get Token</a>
+                    <button class="about-btn" id="aboutBtn" onclick="toggleAbout()" data-lang="about">About</button>
+            </div>
+            <div class="header-controls-right">
+                <div class="language-button">
+                    <button class="lang-btn" id="languageBtn" onclick="toggleLanguage()">
+                        <span id="languageText">English</span>
+                    </button>
+                </div>
+                <div class="theme-button">
+                    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme">
+                        <span id="themeText">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section (Collapsible) -->
+        <div class="about-section hidden" id="aboutSection">
+            <div class="about-content" id="aboutContent">
+                <p>Loading...</p>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 data-lang="title">
+                        <div class="title-line">DISCORD</div><div class="title-line">MESSAGE CLEANER</div>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Login Section -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="status-indicator" id="loginStatus"></span>
+                    <span class="auth-description" data-lang="authDescription">A Discord user token is required to use this tool.</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="tokenInput" data-lang-placeholder="tokenPlaceholder" placeholder="Enter user token">
+                </div>
+                <div class="login-button-wrapper" id="loginButtonWrapper">
+                    <button onclick="toggleLoginLogout()" id="loginBtn" data-lang="login">Login</button>
+                </div>
+                
+                <!-- User Profile Display -->
+                <div class="user-profile hidden" id="userProfile">
+                    <img id="profileAvatar" src="" alt="User Avatar" class="profile-avatar">
+                    <div class="profile-info">
+                        <div class="profile-name" id="profileName"></div>
+                        <div class="profile-id" id="profileId"></div>
+                    </div>
+                </div>
+                
+                <!-- Logout Button (shown when logged in) -->
+                <div class="login-button-wrapper hidden" id="logoutButtonWrapper">
+                    <button onclick="toggleLoginLogout()" id="logoutBtn" class="logout-btn" data-lang="logout">Logout</button>
+                </div>
+            </div>
+
+            <!-- Server Selection -->
+            <div class="section hidden" id="serverSection">
+                <div class="section-title" data-lang="serverSelect">Select Server</div>
+                <div class="custom-select" id="serverSelectWrapper">
+                    <div class="select-selected" id="serverSelectButton" data-lang="selectServer">Select a server...</div>
+                    <div class="select-items hidden" id="serverSelectItems"></div>
+                </div>
+            </div>
+
+            <!-- Channel Selection -->
+            <div class="section hidden" id="channelSection">
+                <div class="section-title" data-lang="channelSelect">Select Channel</div>
+                <div class="custom-select" id="channelSelectWrapper">
+                    <div class="select-selected" id="channelSelectButton" data-lang="selectChannel">Select a channel...</div>
+                    <div class="select-items hidden" id="channelSelectItems"></div>
+                </div>
+                
+                <!-- Custom Channel Input Form -->
+                <div class="custom-channel-form hidden" id="customChannelForm">
+                    <div class="input-group">
+                        <label for="customChannelId" data-lang="enterChannelId">Enter Channel ID</label>
+                        <div class="input-with-button">
+                            <input type="text" id="customChannelId" placeholder="e.g.: 123456789012345678" class="form-input" data-lang-placeholder="channelIdPlaceholder">
+                            <button onclick="validateCustomChannel()" class="validate-btn" data-lang="validateChannel">Validate Channel</button>
+                        </div>
+                        <div class="channel-validation-result hidden" id="channelValidationResult"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Options -->
+            <div class="section hidden" id="searchSection">
+                <div class="section-title" data-lang="searchTarget">Search Target</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="searchTarget" value="self" checked onchange="updateSearchUrl()">
+                        <span class="radio-label" data-lang="myMessages">My Messages</span>
+                        <span class="my-user-id" id="myUserIdDisplay"></span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="searchTarget" value="other" onchange="updateSearchUrl()">
+                        <span class="radio-label" data-lang="otherUser">Other User</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="searchTarget" value="all" onchange="updateSearchUrl()">
+                        <span class="radio-label" data-lang="allMessages">All Messages</span>
+                    </label>
+                </div>
+                
+                <div class="user-input-field hidden" id="otherUserField">
+                    <div class="input-with-button">
+                        <input type="text" id="otherUserId" data-lang-placeholder="userIdPlaceholder" placeholder="Enter user ID" oninput="updateSearchUrl()">
+                        <button onclick="verifyUser()" class="verify-user-btn" id="verifyUserBtn">
+                            <span data-lang="verify">Verify</span>
+                        </button>
+                    </div>
+                    <!-- User Info Display Area -->
+                    <div class="user-verify-result hidden" id="userVerifyResult">
+                        <div class="user-verify-content">
+                            <img id="verifiedUserAvatar" src="" alt="Verified User Avatar" class="verified-user-avatar">
+                            <div class="verified-user-info">
+                                <div class="verified-user-name" id="verifiedUserName"></div>
+                                <div class="verified-user-details">
+                                    <span id="verifiedUsername"></span>
+                                    <span class="user-separator">|</span>
+                                    <span id="verifiedUserId"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Order Switch -->
+            <div class="section hidden" id="sortSection">
+                <div class="section-title" data-lang="sortOrder">Sort Order</div>
+                <div class="sort-order-switch">
+                    <div class="sort-option" id="newestFirstOption" onclick="setSortOrder('newest')">
+                        <div class="sort-option-content">
+                            <div class="sort-option-text">
+                                <div class="sort-option-title">New</div>
+                                <div class="sort-option-desc" data-lang="newestFirstDesc">Delete from newest messages</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sort-option active" id="oldestFirstOption" onclick="setSortOrder('oldest')">
+                        <div class="sort-option-content">
+                            <div class="sort-option-text">
+                                <div class="sort-option-title">Old</div>
+                                <div class="sort-option-desc" data-lang="oldestFirstDesc">Delete from oldest messages</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date Range Section -->
+            <div class="section hidden" id="dateSection">
+                <div class="section-title" data-lang="dateRange">Date Range (Optional)</div>
+                <div class="date-inputs">
+                    <div class="date-field">
+                        <label class="date-label" for="startDate" data-lang="startDate">Start Date</label>
+                        <input type="date" id="startDate" onchange="updateSearchUrl()">
+                    </div>
+                    <div class="date-field">
+                        <label class="date-label" for="endDate" data-lang="endDate">End Date</label>
+                        <input type="date" id="endDate" onchange="updateSearchUrl()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generated URL Display -->
+            <div class="section hidden" id="urlSection">
+                <div class="section-title" data-lang="generatedUrl">Generated URL</div>
+                <div class="url-display">
+                    <code id="generatedUrl" data-lang="generatingUrl">Generating URL...</code>
+                </div>
+                <p class="url-info-text" data-lang="urlInfo">
+                    Messages obtained from the URL above will be deleted. The URL updates in real-time as selections change.
+                </p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="section hidden" id="statsSection">
+                <div class="section-title" data-lang="statistics">Statistics</div>
+                <div class="stats">
+                    <div class="stat-card stat-card-total">
+                        <div class="stat-value" id="totalCount">0</div>
+                        <div class="stat-label" data-lang="totalMessages">Total Messages</div>
+                    </div>
+                    <div class="stat-card stat-card-deleted">
+                        <div class="stat-value" id="deletedCount">0</div>
+                        <div class="stat-label" data-lang="deleted">Deleted</div>
+                    </div>
+                    <div class="stat-card stat-card-failed">
+                        <div class="stat-value" id="errorCount">0</div>
+                        <div class="stat-label" data-lang="failed">Failed</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container" id="progressSection">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0 / 0 (0%)</div>
+                </div>
+            </div>
+
+            <!-- Delete Options -->
+            <div class="section hidden" id="deleteOptionsSection">
+                <div class="delete-speed-control">
+                    <label class="delete-speed-label">
+                        <span data-lang="deleteSpeed">Delete Speed</span>: <span id="speedValue">1200</span><span data-lang="deleteSpeedUnit">ms</span>
+                    </label>
+                    <input type="range" id="deleteSpeed" min="300" max="3000" value="1200" step="100" class="delete-speed-slider">
+                    <div class="speed-indicator-labels">
+                        <span><span data-lang="fast">Fast</span> (300ms)</span>
+                        <span><span data-lang="slow">Slow</span> (3000ms)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Action Button -->
+            <div class="section hidden delete-action-section" id="deleteActionSection">
+                <button onclick="toggleDeletion()" class="danger main-action-btn" id="mainActionBtn" data-lang="startDeletion">Start Deletion</button>
+            </div>
+
+            <!-- Console -->
+            <div class="console-wrapper">
+                <button onclick="clearConsole()" class="clear-console-btn" data-lang="clearConsole">Clear</button>
+                <div class="console" id="console">
+                    <div class="console-line info" data-lang="systemInit">[System] Discord Message Cleaner initialized</div>
+                    <div class="console-line" data-lang="waitingAuth">Waiting for authentication...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Layer -->
+    <script src="./js/translations.js"></script>
+    
+    <!-- Core Utilities -->
+    <script src="./js/utils.js"></script>
+    <script src="./js/console-logger.js"></script>
+    
+    <!-- Log Messages -->
+    <script src="./js/log-messages.js"></script>
+    
+    <!-- Feature Modules -->
+    <script src="./js/url-builder.js"></script>
+    <script src="./js/server-channel-handlers.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/message-api.js"></script>
+    
+    <!-- Main Application -->
+    <script src="./js/main.js"></script>
+    
+    <!-- Token Checker Link Handler -->
+    <script>
+        function openTokenChecker() {
+            const currentLang = window.appState?.currentLanguage || 'en';
+            const currentTheme = window.appState?.currentTheme || 'dark';
+            const currentURL = window.location.origin + window.location.pathname;
+            
+            const tokenCheckerURL = `https://tra8hmaker.github.io/discord-token-checker/?from=${encodeURIComponent(currentURL)}&lang=${currentLang}&theme=${currentTheme}`;
+            
+            window.open(tokenCheckerURL, '_blank');
+        }
+    </script>
+</body>
+</html>
