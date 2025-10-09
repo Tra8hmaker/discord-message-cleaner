@@ -261,11 +261,11 @@
 
         /* Language button text switching */
         .lang-short {
-            display: none;
+            display: none !important;
         }
 
         .lang-full {
-            display: inline;
+            display: inline !important;
         }
 
         .theme-button {
@@ -513,11 +513,11 @@
 
             /* Switch to short language text */
             .lang-short {
-                display: inline;
+                display: inline !important;
             }
 
             .lang-full {
-                display: none;
+                display: none !important;
             }
 
             .lang-btn {
@@ -544,11 +544,11 @@
 
             /* Switch to short language text */
             .lang-short {
-                display: inline;
+                display: inline !important;
             }
 
             .lang-full {
-                display: none;
+                display: none !important;
             }
 
             .lang-btn {
@@ -734,11 +734,11 @@
 
             /* Switch to short language text */
             .lang-short {
-                display: inline;
+                display: inline !important;
             }
 
             .lang-full {
-                display: none;
+                display: none !important;
             }
         }
 
