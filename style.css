@@ -511,14 +511,20 @@
                 content: none;
             }
 
-            /* Maintain transparent design for all buttons */
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            /* Maintain transparent design for all buttons in all states */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -552,6 +558,24 @@
             
             .title-line:first-child::after {
                 content: none;
+            }
+
+            /* Maintain transparent design for all buttons in all states */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
             }
 
             /* Switch to short language text */
@@ -590,14 +614,20 @@
                 content: none;
             }
 
-            /* Maintain transparent design for all buttons */
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            /* Maintain transparent design for all buttons in all states */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -619,14 +649,20 @@
                 content: none;
             }
 
-            /* Maintain transparent design for all buttons */
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            /* Maintain transparent design for all buttons in all states */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -652,7 +688,10 @@
                 padding: 6px 12px 4px 12px;
             }
             
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -663,7 +702,10 @@
                 font-size: 10px;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -693,7 +735,10 @@
                 padding: 4px 12px 3px 12px;
             }
             
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -704,7 +749,10 @@
                 font-size: 9px;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -734,7 +782,10 @@
                 padding: 3px 12px 2px 12px;
             }
             
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -745,7 +796,10 @@
                 font-size: 8px;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -801,14 +855,20 @@
                 grid-template-columns: 1fr;
             }
 
-            /* Maintain transparent design for all buttons */
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            /* Maintain transparent design for all buttons in all states */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
@@ -842,7 +902,10 @@
                 gap: 12px;
             }
             
-            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn,
+            .lang-btn:hover, .theme-btn:hover, .about-btn:hover, .token-help-btn:hover,
+            .lang-btn:active, .theme-btn:active, .about-btn:active, .token-help-btn:active,
+            .lang-btn:focus, .theme-btn:focus, .about-btn:focus, .token-help-btn:focus {
                 backdrop-filter: blur(12px) !important;
                 background: rgba(255, 255, 255, 0.1) !important;
                 border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -853,7 +916,10 @@
                 font-size: 12px;
             }
             
-            .token-help-btn {
+            .token-help-btn,
+            .token-help-btn:hover,
+            .token-help-btn:active,
+            .token-help-btn:focus {
                 background: #faa61a !important;
                 border: 1px solid #faa61a !important;
             }
