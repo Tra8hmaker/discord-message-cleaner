@@ -226,10 +226,9 @@ async function deleteMessagesInChannel(guildId, channelId) {
                 console.log('[deleteMessagesInChannel] No messages in response');
                 
                 // total_resultsがあり、まだメッセージが残っている場合は待機してリトライ
-                if (totalResultsFromAPI !== null && totalResultsFromAPI > deletedCount + failedCount && emptyResponseRetries < maxEmptyRetries) {
-                    const remainingMessages = totalResultsFromAPI - deletedCount - failedCount;
+                if (totalResultsFromAPI !== null && totalResultsFromAPI > 0 && emptyResponseRetries < maxEmptyRetries) {
                     emptyResponseRetries++;
-                    console.log(`[deleteMessagesInChannel] API returned no messages, but total_results indicates ${remainingMessages} remaining (retry ${emptyResponseRetries}/${maxEmptyRetries})`);
+                    console.log(`[deleteMessagesInChannel] API returned no messages, but total_results indicates ${totalResultsFromAPI} remaining (retry ${emptyResponseRetries}/${maxEmptyRetries})`);
                     console.log('[deleteMessagesInChannel] Waiting 5 seconds for API indexing to catch up...');
                     await sleep(5000);
                     console.log('[deleteMessagesInChannel] Retrying...');
@@ -335,15 +334,15 @@ async function deleteMessagesInChannel(guildId, channelId) {
                 
                 // total_resultsがある場合、まだメッセージが残っているかチェック
                 if (totalResultsFromAPI !== null) {
-                    const remainingMessages = totalResultsFromAPI - deletedCount - failedCount;
-                    console.log('[deleteMessagesInChannel] Remaining messages based on total_results:', remainingMessages);
+                    console.log('[deleteMessagesInChannel] total_results from API:', totalResultsFromAPI);
                     
-                    if (remainingMessages > 0) {
+                    if (totalResultsFromAPI > 0) {
                         // まだメッセージが残っている場合は続行
-                        console.log('[deleteMessagesInChannel] Messages still remain, continuing...');
+                        console.log('[deleteMessagesInChannel] Messages still remain (total_results > 0), continuing...');
                         hasMorePages = true;
                     } else {
                         // 本当に終了
+                        console.log('[deleteMessagesInChannel] No more messages (total_results = 0)');
                         if (deleteOldFirst) {
                             logOldestFirstComplete();
                         } else {
