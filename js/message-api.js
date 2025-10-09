@@ -116,6 +116,8 @@ async function deleteMessagesInChannel(guildId, channelId) {
     const limit = 25;
     let hasMorePages = true;
     let totalResultsFromAPI = null;
+    let emptyResponseRetries = 0;
+    const maxEmptyRetries = 3;
     
     console.log('[deleteMessagesInChannel] Starting pagination loop...');
     
@@ -222,10 +224,30 @@ async function deleteMessagesInChannel(guildId, channelId) {
             
             if (!data.messages || data.messages.length === 0) {
                 console.log('[deleteMessagesInChannel] No messages in response');
+                
+                // total_resultsがあり、まだメッセージが残っている場合は待機してリトライ
+                if (totalResultsFromAPI !== null && totalResultsFromAPI > deletedCount + failedCount && emptyResponseRetries < maxEmptyRetries) {
+                    const remainingMessages = totalResultsFromAPI - deletedCount - failedCount;
+                    emptyResponseRetries++;
+                    console.log(`[deleteMessagesInChannel] API returned no messages, but total_results indicates ${remainingMessages} remaining (retry ${emptyResponseRetries}/${maxEmptyRetries})`);
+                    console.log('[deleteMessagesInChannel] Waiting 5 seconds for API indexing to catch up...');
+                    await sleep(5000);
+                    console.log('[deleteMessagesInChannel] Retrying...');
+                    continue; // ループを続行
+                } else if (emptyResponseRetries >= maxEmptyRetries) {
+                    console.log('[deleteMessagesInChannel] Max retries reached for empty responses');
+                    logNoMoreMessages();
+                    hasMorePages = false;
+                    break;
+                }
+                
                 logNoMoreMessages();
                 hasMorePages = false;
                 break;
             }
+            
+            // メッセージが取得できたらリトライカウンターをリセット
+            emptyResponseRetries = 0;
 
             console.log('[deleteMessagesInChannel] Messages before flatten:', data.messages.length);
             
