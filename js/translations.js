@@ -10,7 +10,7 @@ const translations = {
     logout: { en: 'Logout', ja: 'ログアウト' },
     reset: { en: 'Reset', ja: 'リセットする' },
     tokenHelp: { en: 'How to Get Token', ja: 'トークンの取得方法' },
-    about: { en: 'About', ja: 'このツールについて' },
+    about: { en: 'About', ja: '説明' },
     aboutDescription: { 
         en: 'This tool allows you to delete your Discord messages in bulk. Select a server and channel, configure your search options, and start the deletion process. All operations are performed directly from your browser using your Discord token.',
         ja: 'このツールを使用すると、Discordのメッセージを一括削除できます。サーバーとチャンネルを選択し、検索オプションを設定して、削除処理を開始してください。すべての操作は、あなたのDiscordトークンを使用してブラウザから直接実行されます。'
