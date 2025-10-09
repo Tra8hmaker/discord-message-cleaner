@@ -511,6 +511,18 @@
                 content: none;
             }
 
+            /* Maintain transparent design for all buttons */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
+            }
+
             /* Switch to short language text */
             .lang-short {
                 display: inline !important;
@@ -577,6 +589,18 @@
             .title-line:first-child::after {
                 content: none;
             }
+
+            /* Maintain transparent design for all buttons */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
+            }
         }
         
         @media (max-width: 450px) {
@@ -593,6 +617,18 @@
             
             .title-line:first-child::after {
                 content: none;
+            }
+
+            /* Maintain transparent design for all buttons */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
             }
         }
 
@@ -616,12 +652,20 @@
                 padding: 6px 12px 4px 12px;
             }
             
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
             .lang-btn, .theme-btn {
                 padding: 6px 12px;
                 font-size: 10px;
-                backdrop-filter: blur(12px);
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
             }
             
             .container {
@@ -649,12 +693,20 @@
                 padding: 4px 12px 3px 12px;
             }
             
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
             .lang-btn, .theme-btn {
                 padding: 4px 8px;
                 font-size: 9px;
-                backdrop-filter: blur(12px);
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
             }
             
             .container {
@@ -682,12 +734,20 @@
                 padding: 3px 12px 2px 12px;
             }
             
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
             .lang-btn, .theme-btn {
                 padding: 3px 6px;
                 font-size: 8px;
-                backdrop-filter: blur(12px);
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
             }
             
             .container {
@@ -741,6 +801,18 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Maintain transparent design for all buttons */
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
+            }
+
             /* Switch to short language text */
             .lang-short {
                 display: inline !important;
@@ -770,12 +842,20 @@
                 gap: 12px;
             }
             
+            .lang-btn, .theme-btn, .about-btn, .token-help-btn {
+                backdrop-filter: blur(12px) !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
             .lang-btn, .theme-btn {
                 padding: 6px 12px;
                 font-size: 12px;
-                backdrop-filter: blur(12px);
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .token-help-btn {
+                background: #faa61a !important;
+                border: 1px solid #faa61a !important;
             }
             
             .section {
