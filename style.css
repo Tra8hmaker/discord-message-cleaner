@@ -1322,22 +1322,11 @@
         }
 
         .console-line {
-            margin-bottom: 0;
+            margin-bottom: 2px;
             word-wrap: break-word;
-            padding: 1px 12px;
-            line-height: 1.4;
+            padding: 1px 12px 1px 12px;
+            line-height: 1.5;
             margin-top: 0;
-            border: none;
-        }
-
-        /* Prevent line breaks in divider lines */
-        .console-line.console-divider {
-            white-space: nowrap;
-            overflow-x: auto;
-            border: none;
-            margin: 0;
-            padding: 2px 12px;
-            line-height: 1;
         }
 
         .console-line.error {
