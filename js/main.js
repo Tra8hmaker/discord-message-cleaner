@@ -387,3 +387,33 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
+// ============================================
+// Range Mode Toggle (Date / Message ID)
+// ============================================
+
+function toggleRangeMode() {
+    const switcher = document.getElementById('rangeModeSwitcher');
+    const dateRangeInputs = document.getElementById('dateRangeInputs');
+    const messageIdRangeInputs = document.getElementById('messageIdRangeInputs');
+    
+    if (switcher.checked) {
+        // Message ID mode
+        dateRangeInputs.classList.add('hidden');
+        messageIdRangeInputs.classList.remove('hidden');
+        
+        // Clear date inputs
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+    } else {
+        // Date mode
+        dateRangeInputs.classList.remove('hidden');
+        messageIdRangeInputs.classList.add('hidden');
+        
+        // Clear message ID inputs
+        document.getElementById('minMessageId').value = '';
+        document.getElementById('maxMessageId').value = '';
+    }
+    
+    updateSearchUrl();
+}
+

@@ -204,8 +204,20 @@
 
             <!-- Date Range Section -->
             <div class="section hidden" id="dateSection">
-                <div class="section-title" data-lang="dateRange">Date Range (Optional)</div>
-                <div class="date-inputs">
+                <div class="section-header-with-switch">
+                    <div class="section-title" data-lang="dateRange">Date Range (Optional)</div>
+                    <div class="range-mode-switch">
+                        <span class="range-mode-label" data-lang="rangeDate">Date</span>
+                        <label class="switch">
+                            <input type="checkbox" id="rangeModeSwitcher" onchange="toggleRangeMode()">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="range-mode-label" data-lang="rangeMessageId">Message ID</span>
+                    </div>
+                </div>
+                
+                <!-- Date Range Inputs -->
+                <div class="date-inputs" id="dateRangeInputs">
                     <label class="date-field" for="startDate">
                         <span class="date-label" data-lang="startDate">Start Date</span>
                         <input type="date" id="startDate" onchange="updateSearchUrl()">
@@ -214,6 +226,18 @@
                         <span class="date-label" data-lang="endDate">End Date</span>
                         <input type="date" id="endDate" onchange="updateSearchUrl()">
                     </label>
+                </div>
+                
+                <!-- Message ID Range Inputs -->
+                <div class="message-id-inputs hidden" id="messageIdRangeInputs">
+                    <div class="message-id-field">
+                        <label class="date-label" for="minMessageId" data-lang="minMessageId">Min Message ID</label>
+                        <input type="text" id="minMessageId" placeholder="123456789012345678" onchange="updateSearchUrl()">
+                    </div>
+                    <div class="message-id-field">
+                        <label class="date-label" for="maxMessageId" data-lang="maxMessageId">Max Message ID</label>
+                        <input type="text" id="maxMessageId" placeholder="987654321098765432" onchange="updateSearchUrl()">
+                    </div>
                 </div>
             </div>
 

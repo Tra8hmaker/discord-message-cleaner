@@ -16,19 +16,33 @@ function updateSearchUrl() {
         authorId = document.getElementById('otherUserId').value.trim();
     }
 
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
     let minId = null;
     let maxId = null;
     
-    if (startDate) {
-        const startTimestamp = new Date(startDate + 'T00:00:00').getTime();
-        minId = timestampToSnowflake(startTimestamp);
-    }
-    if (endDate) {
-        const endTimestamp = new Date(endDate + 'T23:59:59').getTime();
-        maxId = timestampToSnowflake(endTimestamp);
+    // Check if Message ID mode is enabled
+    const rangeModeSwitcher = document.getElementById('rangeModeSwitcher');
+    const isMessageIdMode = rangeModeSwitcher && rangeModeSwitcher.checked;
+    
+    if (isMessageIdMode) {
+        // Message ID mode
+        const minMessageId = document.getElementById('minMessageId').value.trim();
+        const maxMessageId = document.getElementById('maxMessageId').value.trim();
+        
+        if (minMessageId) minId = minMessageId;
+        if (maxMessageId) maxId = maxMessageId;
+    } else {
+        // Date mode
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        
+        if (startDate) {
+            const startTimestamp = new Date(startDate + 'T00:00:00').getTime();
+            minId = timestampToSnowflake(startTimestamp);
+        }
+        if (endDate) {
+            const endTimestamp = new Date(endDate + 'T23:59:59').getTime();
+            maxId = timestampToSnowflake(endTimestamp);
+        }
     }
 
     // URLを生成（DMの場合は直接channels、サーバーの場合はguildsエンドポイントを使用）
