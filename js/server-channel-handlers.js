@@ -81,6 +81,12 @@ async function loadGuilds() {
         newSelectButton.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
+            // 他のドロップダウンを閉じる
+            const channelDropdown = document.getElementById('channelSelectItems');
+            if (channelDropdown && !channelDropdown.classList.contains('hidden')) {
+                channelDropdown.classList.add('hidden');
+            }
+            // このドロップダウンをトグル
             document.getElementById('serverSelectItems').classList.toggle('hidden');
         });
 
@@ -210,6 +216,12 @@ async function loadDMChannels() {
         newChannelButton.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
+            // 他のドロップダウンを閉じる
+            const serverDropdown = document.getElementById('serverSelectItems');
+            if (serverDropdown && !serverDropdown.classList.contains('hidden')) {
+                serverDropdown.classList.add('hidden');
+            }
+            // このドロップダウンをトグル
             document.getElementById('channelSelectItems').classList.toggle('hidden');
         });
         
@@ -310,6 +322,15 @@ async function loadChannels() {
             const item = createChannelItem(channel, 'text');
             selectItems.appendChild(item);
         });
+        
+        // カテゴリなしのボイスチャンネルを追加
+        const voiceChannelsWithoutCategory = voiceChannels.filter(ch => !ch.parent_id)
+            .sort((a, b) => a.position - b.position);
+        
+        voiceChannelsWithoutCategory.forEach(channel => {
+            const item = createChannelItem(channel, 'voice');
+            selectItems.appendChild(item);
+        });
 
         // カテゴリごとにチャンネルを表示
         categories.forEach(category => {
@@ -319,12 +340,21 @@ async function loadChannels() {
             categoryHeader.textContent = category.name.toUpperCase();
             selectItems.appendChild(categoryHeader);
             
-            // カテゴリ内のチャンネルを追加
+            // カテゴリ内のテキストチャンネルを追加
             const channelsInCategory = textChannels.filter(ch => ch.parent_id === category.id)
                 .sort((a, b) => a.position - b.position);
             
             channelsInCategory.forEach(channel => {
                 const item = createChannelItem(channel, 'text', true); // true = インデント
+                selectItems.appendChild(item);
+            });
+            
+            // カテゴリ内のボイスチャンネルを追加
+            const voiceChannelsInCategory = voiceChannels.filter(ch => ch.parent_id === category.id)
+                .sort((a, b) => a.position - b.position);
+            
+            voiceChannelsInCategory.forEach(channel => {
+                const item = createChannelItem(channel, 'voice', true); // true = インデント
                 selectItems.appendChild(item);
             });
         });
@@ -338,6 +368,12 @@ async function loadChannels() {
         newChannelButton.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
+            // 他のドロップダウンを閉じる
+            const serverDropdown = document.getElementById('serverSelectItems');
+            if (serverDropdown && !serverDropdown.classList.contains('hidden')) {
+                serverDropdown.classList.add('hidden');
+            }
+            // このドロップダウンをトグル
             document.getElementById('channelSelectItems').classList.toggle('hidden');
         });
         
